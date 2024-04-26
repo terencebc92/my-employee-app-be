@@ -74,13 +74,13 @@ public class EmployeeService {
         }
 
         if (firstName.length() > 10) {
-            throw new RuntimeException("First name cannot exceed 10 characters: " + firstName + "Length: " + firstName.length());
+            throw new RuntimeException("First name cannot exceed 10 characters: " + firstName + ". Length: " + firstName.length());
         }
         if (lastName.length() > 10) {
-            throw new RuntimeException("Last name cannot exceed 10 characters: " + lastName + "Length: " + lastName.length());
+            throw new RuntimeException("Last name cannot exceed 10 characters: " + lastName + ". Length: " + lastName.length());
         }
         if (email.length() > 20) {
-            throw new RuntimeException("Email cannot exceed 20 characters: " + email + "Length: " + email.length());
+            throw new RuntimeException("Email cannot exceed 20 characters: " + email + ". Length: " + email.length());
         }
         if (salary < 0) {
             throw new RuntimeException("Salary cannot be negative: " + salary);
