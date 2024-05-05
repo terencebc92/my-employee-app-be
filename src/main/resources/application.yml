@@ -6,8 +6,8 @@ spring:
     name: employeemanagement
   datasource:
     url: jdbc:sqlserver://itmd504employeeserver.database.windows.net:1433;database=employeedb;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
-    username: ${DBUSER}
-    password: ${DBPASS}
+    username: <db_user>
+    password: <db_pass>
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     properties:
