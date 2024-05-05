@@ -3,6 +3,10 @@
 
 name: Build and deploy JAR app to Azure Web App - my-employee-app-be
 
+env:
+  DBPASS: ${{ secrets.DBPASS }}
+  DBUSER: ${{ secrets.USER }}
+
 on:
   push:
     branches:
