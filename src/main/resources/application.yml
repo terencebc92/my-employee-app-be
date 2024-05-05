@@ -1,0 +1,18 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: employeemanagement
+  datasource:
+    url: jdbc:sqlserver://itmd504employeeserver.database.windows.net:1433;database=employeedb;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    username: ${{ secrets.DBUSER }}
+    password: ${{ secrets.DBPASS }}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: update
+        dialect: org.hibernate.dialect.SQLServerDialect
+    generate-ddl: true
+    show-sql: true
