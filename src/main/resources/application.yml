@@ -5,14 +5,14 @@ spring:
   application:
     name: employeemanagement
   datasource:
-    url: jdbc:sqlserver://itmd504employeeserver.database.windows.net:1433;database=employeedb;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    url: <url>
     username: <db_user>
     password: <db_pass>
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    driver-class-name: org.postgresql.Driver
   jpa:
     properties:
       hibernate:
         ddl-auto: update
-        dialect: org.hibernate.dialect.SQLServerDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
     show-sql: true
