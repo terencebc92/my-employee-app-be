@@ -1,0 +1,44 @@
+name: Deploy Spring Boot App to Proxmox
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+
+    - name: Build Spring Boot app
+      run: mvn -B package --file pom.xml
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    needs: build
+
+    steps:
+    - name: Deploy to Proxmox
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VM_HOST }}
+        username: ${{ secrets.VM_USERNAME }}
+        port: ${{ secrets.VM_PORT }}
+        key: ${{ secrets.VM_PRIVATE_KEY_ARCHBOX }}
+        script: |
+          cd /path/to/deployment/directory
+          # Replace 'app.jar' with your actual JAR file name
+          mv /path/to/your/app/target/*.jar app.jar
+          java -jar app.jar --spring.datasource.username=${{ secrets.DBUSER }} --spring.datasource.password=${{ secrets.DBPASS }}
