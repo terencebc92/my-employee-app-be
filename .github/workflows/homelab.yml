@@ -43,7 +43,13 @@ jobs:
     steps:
     - name: Stop Previous Instance on Port 8083
       run: |
-        sudo lsof -ti:8083 | xargs kill -9
+        PID=$(sudo lsof -ti:8083)
+        if [ -n "$PID" ]; then
+        echo "Process found on port 8083. Killing PID $PID."
+        sudo kill -9 $PID
+        else
+        echo "No process found on port 8083."
+        fi
     - name: Deploy to Proxmox
       uses: appleboy/ssh-action@v1.0.3
       with:
