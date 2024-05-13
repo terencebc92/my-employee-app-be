@@ -41,15 +41,6 @@ jobs:
     needs: build
 
     steps:
-    - name: Stop Previous Instance on Port 8083
-      run: |
-        PID=$(sudo lsof -ti:8083)
-        if [ -n "$PID" ]; then
-          echo "Process found on port 8083. Killing PID $PID."
-          sudo kill -9 $PID
-        else
-          echo "No process found on port 8083."
-        fi
     - name: Deploy to Proxmox
       uses: appleboy/ssh-action@v1.0.3
       with:
@@ -61,4 +52,5 @@ jobs:
           cd ~/backend
           # Replace 'app.jar' with your actual JAR file name
           mv target/employeemanagement-0.0.1-SNAPSHOT.jar app.jar
+          ./test.sh
           nohup java -jar app.jar --spring.datasource.username=${{ secrets.DBUSER }} --spring.datasource.password=${{ secrets.DBPASS }} --spring.datasource.url=${{ secrets.DB_URL }} > deployment.log &
