@@ -52,4 +52,4 @@ jobs:
           cd ~/backend
           # Replace 'app.jar' with your actual JAR file name
           mv target/employeemanagement-0.0.1-SNAPSHOT.jar app.jar
-          java -jar app.jar --spring.datasource.username=${{ secrets.DBUSER }} --spring.datasource.password=${{ secrets.DBPASS }}
+          java -jar app.jar --spring.datasource.username=${{ secrets.DBUSER }} --spring.datasource.password=${{ secrets.DBPASS }} --spring.datasource.url=${{ secrets.DB_URL }}
