@@ -39,7 +39,7 @@ jobs:
         port: ${{ secrets.VM_PORT }}
         key: ${{ secrets.VM_PRIVATE_KEY_ARCHBOX }}
         script: |
-          cd /path/to/deployment/directory
+          cd ~/backend
           # Replace 'app.jar' with your actual JAR file name
-          mv /path/to/your/app/target/*.jar app.jar
+          mv target/employeemanagement-0.0.1-SNAPSHOT.jar.original app.jar
           java -jar app.jar --spring.datasource.username=${{ secrets.DBUSER }} --spring.datasource.password=${{ secrets.DBPASS }}
