@@ -25,6 +25,16 @@ jobs:
     - name: Build Spring Boot app
       run: mvn -B package --file pom.xml
 
+    - name: Copy files to remote server
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.VM_HOST }}
+        username: ${{ secrets.VM_USERNAME }}
+        port: ${{ secrets.VM_PORT }}
+        key: ${{ secrets.VM_PRIVATE_KEY_ARCHBOX }}
+        source: "target/"
+        target: "~/backend/"
+
   deploy:
     runs-on: ubuntu-latest
 
