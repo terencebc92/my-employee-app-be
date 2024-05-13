@@ -41,6 +41,9 @@ jobs:
     needs: build
 
     steps:
+    - name: Stop Previous Instance on Port 8083
+      run: |
+        echo ${{ secrets.SUDO_PASSWORD }} | sudo lsof -ti:8083 | xargs kill -9
     - name: Deploy to Proxmox
       uses: appleboy/ssh-action@v1.0.3
       with:
