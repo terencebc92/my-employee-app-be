@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logs</title>
+</head>
+<body>
+<h1>Log Files</h1>
+<ul id="log-list"></ul>
+
+<script>
+    // Fetch the list of logs
+    fetch('/logs')
+        .then(response => response.json())
+        .then(logs => {
+            const logList = document.getElementById('log-list');
+            logs.forEach(log => {
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = `/logs/${log}`;
+                link.textContent = log;
+                link.target = '_blank';
+                listItem.appendChild(link);
+                logList.appendChild(listItem);
+            });
+        })
+        .catch(err => console.error('Error fetching logs:', err));
+</script>
+</body>
+</html>
