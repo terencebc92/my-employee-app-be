@@ -15,9 +15,4 @@ spring:
         ddl-auto: update
         dialect: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
-    show-sql: true
-
-
-
-
-
+    show-sql: false
