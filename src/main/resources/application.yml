@@ -2,6 +2,8 @@ server:
   port: 8083
 
 spring:
+  main:
+    banner-mode: log
   application:
     name: employeemanagement
   datasource:
@@ -16,3 +18,10 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
     show-sql: false
+
+logging:
+  file:
+    name: logs/latest.log
+  level:
+    root: INFO
+
