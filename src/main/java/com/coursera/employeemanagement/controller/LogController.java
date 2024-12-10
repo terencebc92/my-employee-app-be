@@ -32,7 +32,8 @@ public class LogController {
         }
 
         // List all files in the log directory
-        File[] files = logDir.listFiles((dir, name) -> name.endsWith(".log"));
+        File[] files = logDir.listFiles();
+//        File[] files = logDir.listFiles((dir, name) -> name.endsWith(".log"));
         List<String> logFiles = new ArrayList<>();
         if (files != null) {
             for (File file : files) {
