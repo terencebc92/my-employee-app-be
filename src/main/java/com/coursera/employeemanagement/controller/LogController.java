@@ -1,10 +1,8 @@
 package com.coursera.employeemanagement.controller;
 
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,25 +45,26 @@ public class LogController {
     // Endpoint to serve a specific log file
     @GetMapping("/{fileName}")
     @ResponseBody
-    public ResponseEntity<byte[]> getLogFile(@PathVariable String fileName) {
+    public ResponseEntity<InputStreamResource> getLogFile(@PathVariable String fileName) {
         Path logFilePath = Paths.get(LOG_DIR, fileName);
 
         // Check if the requested log file exists
         if (!Files.exists(logFilePath)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(("Log file " + fileName + " not found.").getBytes());
+                    .body(null);
         }
 
         try {
-            byte[] fileContent = Files.readAllBytes(logFilePath);
+            InputStreamResource resource = new InputStreamResource(Files.newInputStream(logFilePath));
 
             // Serve the log file as plain text
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.TEXT_PLAIN);
-            return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
+            headers.setContentDisposition(ContentDisposition.inline().filename(fileName).build());
+            return new ResponseEntity<>(resource, headers, HttpStatus.OK);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(("Error reading log file: " + e.getMessage()).getBytes());
+                    .body(null);
         }
     }
 }
