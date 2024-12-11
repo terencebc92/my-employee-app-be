@@ -60,7 +60,7 @@ public class LogController {
             // Serve the log file as plain text
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.TEXT_PLAIN);
-            headers.setContentDisposition(ContentDisposition.inline().filename(fileName).build());
+//            headers.setContentDisposition(ContentDisposition.inline().filename(fileName).build());
             return new ResponseEntity<>(resource, headers, HttpStatus.OK);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
