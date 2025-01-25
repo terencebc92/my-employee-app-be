@@ -57,8 +57,8 @@ jobs:
           script: |
             mkdir -p ~/backend/logs
             cd ~/backend
-            #login
-            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_ACCESS_TOKEN }}
+            # login
+            # docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_ACCESS_TOKEN }}
             # Pull the latest Docker image from the container registry
             docker pull ${{ secrets.DOCKER_USERNAME }}/my-employee-app-be:latest
             # Stop and remove the old container if running
@@ -69,7 +69,7 @@ jobs:
               -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
               -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
               -e DB_URL=${{ secrets.DB_URL }} \
-              -e MAIL_USERNAME=${{ secrets.MAIL_USERNAME }}\
+              -e MAIL_USERNAME=${{ secrets.MAIL_USERNAME }} \
               -e MAIL_APP_PASSWORD=${{ secrets.MAIL_APP_PASSWORD }} \
               -v ~/backend/logs:/app/logs \
               --name my-employee-app-be \
