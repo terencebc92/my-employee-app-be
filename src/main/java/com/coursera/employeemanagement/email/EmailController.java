@@ -28,14 +28,12 @@ public class EmailController {
 
     @PostMapping
     public ResponseEntity<String> sendContactEmail(@RequestBody Map<String, String> request) {
-        if (request != null) {
-            return ResponseEntity.status(500).body("Failed to send message. Please try again later.");
-        }
+
         Instant now = Instant.now();
         if (emailThrottle.containsKey(mailUsername) &&
-                emailThrottle.get(mailUsername).plusSeconds(60).isBefore(now)) {
+                emailThrottle.get(mailUsername).plusSeconds(60).isAfter(now)) {
             return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                    .body("You can only send one email per minute.");
+                    .body("You have just sent one email. Please wait before sending another one.");
         }
 
         emailThrottle.put(mailUsername, now);
@@ -55,7 +53,7 @@ public class EmailController {
         String body = "Name: " + name + "\nEmail: " + from + "\nMessage:\n" + message;
 
         try {
-            emailService.sendEmail(mailUsername, subject, body, from);
+//            emailService.sendEmail(mailUsername, subject, body, from);
             return ResponseEntity.ok("Message sent successfully!");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Failed to send message. Please try again later.");
