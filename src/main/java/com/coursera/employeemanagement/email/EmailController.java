@@ -53,7 +53,7 @@ public class EmailController {
         String body = "Name: " + name + "\nEmail: " + from + "\nMessage:\n" + message;
 
         try {
-//            emailService.sendEmail(mailUsername, subject, body, from);
+            emailService.sendEmail(mailUsername, subject, body, from);
             return ResponseEntity.ok("Message sent successfully!");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Failed to send message. Please try again later.");
