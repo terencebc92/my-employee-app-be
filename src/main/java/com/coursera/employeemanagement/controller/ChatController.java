@@ -49,13 +49,13 @@ public class ChatController {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     emitter.send(line + "\n");
-                    log.info("sending to client");
-
+//                    log.info("sending to client");
                 }
 
                 emitter.complete();
             } catch (Exception e) {
                 try {
+                    log.info("Some error occurred:", e.getMessage());
                     emitter.send("Error processing request\n");
                 } catch (Exception ignored) {
                     log.info("ignored error");
