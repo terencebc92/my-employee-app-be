@@ -39,3 +39,6 @@ logging:
     name: logs/latest.log
   level:
     root: INFO
+
+api:
+  modelUrl: ${API_MODEL_URL}}
