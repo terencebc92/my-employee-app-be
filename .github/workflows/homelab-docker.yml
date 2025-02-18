@@ -71,6 +71,7 @@ jobs:
               -e DB_URL=${{ secrets.DB_URL }} \
               -e MAIL_USERNAME=${{ secrets.MAIL_USERNAME }} \
               -e MAIL_APP_PASSWORD="${{ secrets.MAIL_APP_PASSWORD }}" \
+              -e API_MODEL_URL=${{ secrets.API_MODEL_URL }} \
               -v ~/backend/logs:/app/logs \
               --name my-employee-app-be \
               ${{ secrets.DOCKER_USERNAME }}/my-employee-app-be:latest
