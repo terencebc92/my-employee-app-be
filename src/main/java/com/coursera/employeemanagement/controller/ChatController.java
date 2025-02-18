@@ -2,6 +2,7 @@ package com.coursera.employeemanagement.controller;
 
 import com.coursera.employeemanagement.dto.ChatDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/v1/chat")
+@Slf4j
 public class ChatController {
 
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -26,6 +28,9 @@ public class ChatController {
 
     @PostMapping(value = "/generate", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter chat(@RequestBody ChatDto chatDto) {
+        log.info(chatDto.getModel());
+        log.info(chatDto.getPrompt());
+        log.info("{}",chatDto.isStream());
         SseEmitter emitter = new SseEmitter(Long.MAX_VALUE);
 
         CompletableFuture.runAsync(() -> {
@@ -44,6 +49,8 @@ public class ChatController {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     emitter.send(line + "\n");
+                    log.info("sending to client");
+
                 }
 
                 emitter.complete();
@@ -51,11 +58,13 @@ public class ChatController {
                 try {
                     emitter.send("Error processing request\n");
                 } catch (Exception ignored) {
+                    log.info("ignored error");
                 }
                 emitter.completeWithError(e);
             }
         });
 
+        log.info("End request");
         return emitter;
     }
 
