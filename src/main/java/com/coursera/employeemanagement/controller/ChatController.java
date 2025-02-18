@@ -36,7 +36,7 @@ public class ChatController {
         CompletableFuture.runAsync(() -> {
             try {
                 String requestBody = objectMapper.writeValueAsString(chatDto);
-
+                log.info(modelApiUrl);
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(modelApiUrl))
                         .header("Content-Type", "application/json")
