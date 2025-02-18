@@ -48,8 +48,8 @@ public class ChatController {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
+                    log.info("Received chunk: {}", line); // Log the chunk received from the LLM
                     emitter.send(line + "\n");
-//                    log.info("sending to client");
                 }
 
                 emitter.complete();
