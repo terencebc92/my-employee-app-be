@@ -28,15 +28,12 @@ public class ChatController {
 
     @PostMapping(value = "/generate", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter chat(@RequestBody ChatDto chatDto) {
-        log.info(chatDto.getModel());
-        log.info(chatDto.getPrompt());
         log.info("{}",chatDto.isStream());
         SseEmitter emitter = new SseEmitter(Long.MAX_VALUE);
 
         CompletableFuture.runAsync(() -> {
             try {
                 String requestBody = objectMapper.writeValueAsString(chatDto);
-                log.info(modelApiUrl);
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(modelApiUrl))
                         .header("Content-Type", "application/json")
